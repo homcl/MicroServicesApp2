@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Requester.Model;
+﻿using Processor.Model;
 
-namespace Requester.Port
+namespace Processor.Port
 {
     public interface IAmMsgStorageForProcessorToReadAndWriteFrom
     {
-        Message ReadMsgFromStore(); // includes polling storage
+        void ReadMsgFromStore();
         void WriteMsgToStore(Message msg);
     }
 }

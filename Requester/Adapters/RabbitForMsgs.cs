@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Net.Http;
 using System.Text;
 using Newtonsoft.Json;
 using Requester.Model;
@@ -14,23 +13,22 @@ namespace Requester.Adapter
 
         public RabbitForMsgs()
         {
-            Console.WriteLine("RabbitForMsgs object has just been instantiated");
+            Console.WriteLine("**** Requester side:RabbitForMsgs object has just been instantiated ****");
             _connectionFactory = new ConnectionFactory()
             {
                 HostName = "localhost",
-                Port = 15672
             };
         }
 
         public Message ReadMsgFromStore()
         {
-            Console.WriteLine("**** Inside RABBITForMsgs:ReadMsgFromStore ****");
-            return new Message(1, "Returning from RabbitForMsgs: ReadMsgFromStore");
+            Console.WriteLine("**** Requester side:Inside RABBITForMsgs:ReadMsgFromStore ****");
+            return new Message();
         }
 
         public void WriteMsgToStore(Message msg)
         {
-            Console.WriteLine("**** Inside RabbitForMsgs:WriteMsgToStore ****");
+            Console.WriteLine("**** Requester side:Inside RabbitForMsgs:WriteMsgToStore ****");
 
             // Format msg to put on Rabbit queue
             using (var connection = _connectionFactory.CreateConnection())
@@ -44,20 +42,16 @@ namespace Requester.Adapter
                         autoDelete: false,
                         arguments: null
                     );
+                    var serializedMsg = JsonConvert.SerializeObject(msg);
 
-                    var msgBodyAsBytes = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(msg));
+                    var msgBodyAsBytes = Encoding.UTF8.GetBytes(serializedMsg);
+                    //var msgBodyAsBytes = Convert.ToBase64String(msg, Base64FormattingOptions.InsertLineBreaks);
                     channel.BasicPublish(exchange: "", routingKey: "TodoPublisher", body: msgBodyAsBytes);
-                    Console.WriteLine($"TodoPublisher has sent {msgBodyAsBytes}");
+                    Console.WriteLine($"**** Requester side:TodoPublisher has sent {msgBodyAsBytes} ****");
                 }
 
                 Console.ReadLine();
             }
-
-            // using (var client = new HttpClient())
-            // {
-            //     client.PostAsJsonAsync("http://localhost:5002/api/msg", msg);
-            // 
-            // }
         }
     }
 }

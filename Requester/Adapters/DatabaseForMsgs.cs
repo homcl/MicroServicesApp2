@@ -13,7 +13,7 @@ namespace Requester.Adapter
         public Message ReadMsgFromStore()
         {
             Console.WriteLine("**** Inside DATABASEForMsg:ReadMsgFromStore ****");
-            return new Message(1, "Returning from DatabaseForMsgs: ReadMsgFromStore");
+            return new Message();
         }
 
         public void WriteMsgToStore(Message msg)

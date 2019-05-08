@@ -1,15 +1,14 @@
-﻿using System;
-using Requester.Model;
-using Requester.Port;
+﻿using Processor.Port;
+using System;
+using Processor.Model;
 
-namespace Requester.Adapter
+namespace Processor.Adapter
 {
     public class DatabaseForMsgs : IAmMsgStorageForProcessorToReadAndWriteFrom
     {
-        public Message ReadMsgFromStore()
+        public void ReadMsgFromStore()
         {
             throw new NotImplementedException();
-            return ReadMsgFromStore();
         }
 
         public void WriteMsgToStore(Message msg)

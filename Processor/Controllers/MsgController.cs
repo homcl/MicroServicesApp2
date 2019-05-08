@@ -8,17 +8,18 @@ namespace Processor.Controllers
     [ApiController]
     public class MsgController : ControllerBase
     {
-        private IReadWriteStore _readWriteStoreService;
+        // private IReadWriteStore _readWriteStoreService;
 
         public MsgController(IReadWriteStore readWriteStoreService)
         {
-            _readWriteStoreService = readWriteStoreService;
+           // _readWriteStoreService = readWriteStoreService;
         }
 
         // GET api/msg
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
+
             return new string[] { "value1", "value2" };
         }
 

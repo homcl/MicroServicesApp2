@@ -1,0 +1,1 @@
+docker-compose -p rabbit_for_MicroServiceApp2 up --build
